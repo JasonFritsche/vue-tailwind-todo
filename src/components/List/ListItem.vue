@@ -15,17 +15,17 @@
       hover:border-indigo-100
     "
   >
-    {{ item }}
+    {{ item.name }}
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-
+import { defineComponent, PropType } from "vue";
+import { ITodo } from "../../models/Todo";
 export default defineComponent({
   props: {
     item: {
-      type: String,
+      type: Object as PropType<ITodo>,
       required: true,
     },
   },
