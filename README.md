@@ -4,7 +4,7 @@ This is a sandbox project which I plan on using to learn more about Vite, Vue 3 
 
 # FOSS 4 Life
 
-Feel free to clone, contribute, and/or fork.
+Feel free to clone, contribute, and/or fork (this includes (meaningful/helpful) Hacktoberfest contributions)
 
 # Vue 3 + Typescript + Vite
 
