@@ -6,4 +6,11 @@ interface ITodo {
   state: TodoState;
 }
 
-export { ITodo };
+interface IValidatedTodo {
+  isValid: boolean;
+  message: string;
+}
+
+type TodoResponse = ITodo & IValidatedTodo;
+
+export { ITodo, IValidatedTodo, TodoResponse };
