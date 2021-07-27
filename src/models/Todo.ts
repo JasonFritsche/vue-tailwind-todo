@@ -2,7 +2,7 @@ import { TodoState } from "../enums/Todo";
 
 interface ITodo {
   name: string;
-  created: Date;
+  created: string;
   state: TodoState;
 }
 

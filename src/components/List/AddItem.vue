@@ -40,7 +40,7 @@ export default defineComponent({
     const addTodo = () => {
       const newTodo: ITodo = {
         name: todoName.value,
-        created: new Date(),
+        created: new Date().toLocaleString(),
         state: TodoState.active,
       };
       const isValid = validateTodo(newTodo);
