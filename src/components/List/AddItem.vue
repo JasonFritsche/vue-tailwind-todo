@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row my-3">
-    <j-input v-model="todoName"></j-input>
-    <j-button @click="addTodo()" class="ml-1 whitespace-nowrap">
+    <j-input v-model="todoName" @keyup="addTodo($event)"></j-input>
+    <j-button @click="addTodo($event)" class="ml-1 whitespace-nowrap">
       <p>Add Item</p>
     </j-button>
   </div>
@@ -37,15 +37,20 @@ export default defineComponent({
   },
   setup(_, context) {
     const todoName = ref<string>("");
-    const addTodo = () => {
-      const newTodo: ITodo = {
-        name: todoName.value,
-        created: new Date().toLocaleString(),
-        state: TodoState.active,
+    const addTodo = (event: KeyboardEvent | WindowEventMap) => {
+      const createAndAddTodo = () => {
+        const newTodo: ITodo = {
+          name: todoName.value,
+          created: new Date().toLocaleString(),
+          state: TodoState.active,
+        };
+        const isValid = validateTodo(newTodo);
+        const todoRes: TodoResponse = { ...newTodo, ...isValid };
+        context.emit("newTodo", todoRes);
       };
-      const isValid = validateTodo(newTodo);
-      const todoRes: TodoResponse = { ...newTodo, ...isValid };
-      context.emit("newTodo", todoRes);
+      if (("key" in event && event.key === "Enter") || !("key" in event)) {
+        createAndAddTodo();
+      }
     };
     return {
       todoName,
