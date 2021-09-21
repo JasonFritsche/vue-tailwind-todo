@@ -2,7 +2,7 @@
   <div class="container w-2/3 mx-auto grid grid-cols-1">
     <add-item @new-todo="addTodo"></add-item>
     <ul class="grid grid-cols-1">
-      <li class="h-10 my-1" v-for="(item, index) in list" :key="index">
+      <li class="h-10 my-1" v-for="(item, index) in state.list" :key="index">
         <list-item :item="item" />
       </li>
     </ul>
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, reactive } from "vue";
 import ListItem from "../List/ListItem.vue";
 import AddItem from "./AddItem.vue";
 import { ITodo, TodoResponse } from "../../models/Todo";
@@ -20,11 +20,13 @@ export default defineComponent({
   components: { ListItem, AddItem },
   setup() {
     const toast = useToast();
-    const list = ref<Array<ITodo>>([]);
-    // const addTodo = (todo: ITodo) => list.value.push(todo);
+    // const list = ref<Array<ITodo>>([]);
+    const state = reactive({
+      list: <Array<ITodo>>[],
+    });
     const addTodo = (todo: TodoResponse) => {
       if (todo.isValid) {
-        list.value.push(todo);
+        state.list = [...state.list, todo];
         toast.success(todo.message, {
           timeout: 2000,
         });
@@ -33,7 +35,7 @@ export default defineComponent({
       }
     };
     return {
-      list,
+      state,
       addTodo,
       toast,
     };
